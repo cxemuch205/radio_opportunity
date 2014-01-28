@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    
+    <item
+        android:id="@+id/action_links"
+        android:orderInCategory="1000"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_links"/>
+    
+    <item
+        android:id="@+id/action_donate"
+        android:orderInCategory="1000"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_donate_money"/>
+    
+    <item
+        android:id="@+id/action_about_us"
+        android:orderInCategory="1000"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_about_us"/>
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="1000"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_settings"/>
+
+</menu>

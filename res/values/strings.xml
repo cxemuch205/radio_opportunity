@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RadioOpportunity</string>
+    
+    <string name="radio_name">Radio \"Opportunity\"</string>
+    
+    <string name="no_connection">No connection!</string>
+    <string name="buffering">Buffering&#8230;</string>
+    
+    <!-- Player Fragment -->
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="vol">Vol.</string>
+    <string name="cancel">Cancel</string>
+    <!-- ############### -->
+    
+    <!-- Option Menu -->
+    <string name="action_settings">Setting</string>
+    <string name="action_links">Links</string>
+    <string name="action_about_us">About us</string>
+    <string name="action_donate_money">Donate</string>
+    <!-- ############### -->
+
+</resources>

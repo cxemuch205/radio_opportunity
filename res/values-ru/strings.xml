@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RadioOpportunity</string>
+    
+    <string name="radio_name">Радио \"Можливість\"</string>
+    
+    <string name="no_connection">Нет соединения!</string>
+    <string name="buffering">Буферизация&#8230;</string>
+    
+    <!-- Player Fragment -->
+    <string name="play">Воспроизвести</string>
+    <string name="stop">Стоп</string>
+    <string name="vol">Громк.</string>
+    <string name="cancel">Отмена</string>
+    <!-- ############### -->
+    
+    <!-- Option Menu -->
+    <string name="action_settings">Настройки</string>
+    <string name="action_links">Ссылки</string>
+    <string name="action_about_us">О нас</string>
+    <string name="action_donate_money">Пожертвовать</string>
+    <!-- ############### -->
+
+</resources>

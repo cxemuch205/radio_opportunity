@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+ 
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle" >
+            <corners android:radius="5dp" />
+ 
+            <gradient
+                android:angle="270"
+                android:endColor="#646663"
+                android:startColor="#646663" />
+        </shape>
+    </item>
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle" >
+                <corners android:radius="5dp" />
+ 
+                <gradient
+                    android:angle="270"
+                    android:endColor="#91aeaf"
+                    android:startColor="#829b9c" />
+            </shape>
+        </clip>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle" >
+                <corners android:radius="5dp" />
+ 
+                <gradient
+                    android:angle="270"
+                    android:endColor="#708283"
+                    android:startColor="#829b9c" />
+            </shape>
+        </clip>
+    </item>
+ 
+</layer-list>
+
+<!-- ?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+android:id/SecondaryProgress"
+        android:drawable="@drawable/secondary_seek"/>
+    <item
+        android:id="@+android:id/progress"
+        android:drawable="@drawable/progress_seek"/>
+
+</layer-list -->
