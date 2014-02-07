@@ -9,3 +9,8 @@
 - программы для детей (сказки, истории, притчи..)
 - прямое вещаниеб обзение;
 и другое..
+
+Внешне приблизительный дизайн:
+<img src="http://i6.pixs.ru:/storage/0/7/5/Screenshot_1076295_10779075.png" alt="Screenshot 1"/>
+<img src="http://i7.pixs.ru:/storage/0/7/6/Screenshot_1926383_10779076.png" alt="Screenshot 2"/>
+<img src="http://i7.pixs.ru:/storage/0/7/8/Screenshot_3874854_10779078.png" alt="Screenshot 3"/>

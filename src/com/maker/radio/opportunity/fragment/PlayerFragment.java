@@ -3,14 +3,17 @@ package com.maker.radio.opportunity.fragment;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +35,7 @@ import com.maker.radio.opportunity.utils.onDialogClickListener;
 
 public class PlayerFragment extends SherlockFragment{
 	
-	//private static final String TAG = "PlayerFragment";
+	private static final String TAG = "PlayerFragment";
 	
 	private View view = null;
 	private ToggleButton tbPlayStop = null;
@@ -45,10 +48,25 @@ public class PlayerFragment extends SherlockFragment{
     private Timer timerUpdateVol = null;
     private ProgressDialog pd = null;
     private Handler handler = null;
+    private NotificationManager notMang;
     
     private static final int TIMER_REFRESH = 100;
+    private SharedPreferences pref;
     
     //private NotificationManager notMang = null;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+		pref = Tools.getPreferences(getSherlockActivity());
+		notMang = (NotificationManager)getSherlockActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		audioManager = ((AudioManager)getSherlockActivity().getSystemService(Context.AUDIO_SERVICE));
+		pd = new ProgressDialog(getSherlockActivity());
+		pd.setMessage(getString(R.string.buffering));
+		pd.setCanceledOnTouchOutside(false);
+		pd.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.cancel), pdClickCancelListener);
+    }
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +91,7 @@ public class PlayerFragment extends SherlockFragment{
 		
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			
+			pref.edit().putBoolean(App.PREF_PLAY_STATUS, isChecked).commit();
 			if(isChecked){
 				getSherlockActivity().startService(intentPlayerService.setFlags(App.STOP_MEDIA_CODE_ACTION));
 			}
@@ -96,12 +114,6 @@ public class PlayerFragment extends SherlockFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		getSherlockActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
-		audioManager = ((AudioManager)getSherlockActivity().getSystemService(Context.AUDIO_SERVICE));
-		pd = new ProgressDialog(getSherlockActivity());
-		pd.setMessage(getString(R.string.buffering));
-		pd.setCanceledOnTouchOutside(false);
-		pd.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.cancel), pdClickCancelListener);
 		
 		tbPlayStop.setOnCheckedChangeListener(checkedChangeToggleBtnListener);
 		sbVolumeControl.setMax(15);
@@ -113,6 +125,9 @@ public class PlayerFragment extends SherlockFragment{
 		Animation animChecked = AnimationUtils.loadAnimation(getSherlockActivity(), R.anim.alpha_revers_animation);
 		tbPlayStop.setAnimation(animChecked);
 		timerUpdateVol.schedule(timerTaskCheckPlaying, 500, TIMER_REFRESH);
+		if(pref.contains(App.PREF_PLAY_STATUS)){
+			tbPlayStop.setChecked(pref.getBoolean(App.PREF_PLAY_STATUS, false));
+		}		
 	}
 	
 	private TimerTask timerTaskCheckPlaying = new TimerTask() {
@@ -125,11 +140,17 @@ public class PlayerFragment extends SherlockFragment{
 				public void run() {
 					updateVolLevel();
 					if(audioManager.isMusicActive() == false && tbPlayStop.isChecked() == false){
-                		pd.show();
+						if(Tools.checkInternetConnection(getSherlockActivity())){
+							if(pd != null) pd.show();
+						}
+						else{
+							Tools.showToast(getSherlockActivity(), getString(R.string.no_connection));
+							tbPlayStop.setChecked(true);
+						}
                 	}
                 	else
                 	{
-                		pd.dismiss();
+                		if(pd != null) pd.dismiss();
                 	}
 				}
 			}, 0);
@@ -148,7 +169,21 @@ public class PlayerFragment extends SherlockFragment{
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		Log.i(TAG, "onDestroy()");
+		getSherlockActivity().stopService(intentPlayerService);
 		timerUpdateVol.cancel();
+		pref.edit().putBoolean(App.PREF_PLAY_STATUS, true).commit();
+		notMang.cancel(App.NOTIFYCATION_PLAYER_ID);
+		timerUpdateVol.cancel();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		Log.i(TAG, "onResume()");
+		if(pref.contains(App.PREF_PLAY_STATUS)){
+			tbPlayStop.setChecked(pref.getBoolean(App.PREF_PLAY_STATUS, false));
+		}
 	}
 	
 	private OnSeekBarChangeListener sbProgressListener = new OnSeekBarChangeListener() {

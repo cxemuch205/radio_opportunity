@@ -7,6 +7,7 @@
     
     <string name="no_connection">Нет соединения!</string>
     <string name="buffering">Буферизация&#8230;</string>
+    <string name="happy_listening">Приятного прослушивания</string>
     
     <!-- Player Fragment -->
     <string name="play">Воспроизвести</string>

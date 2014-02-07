@@ -1,8 +1,10 @@
 package com.maker.radio.opportunity.utils;
 
 import com.maker.radio.opportunity.R;
+import com.maker.radio.opportunity.constant.App;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.Gravity;
@@ -51,6 +53,10 @@ public class Tools {
 	         toast.setView(tvTextToast);
 	         toast.show();
 	    }		
+	}
+	
+	public static SharedPreferences getPreferences(Context ctx){
+		return ctx.getSharedPreferences(App.PREF_APP, 0);
 	}
 
 }

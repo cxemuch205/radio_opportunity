@@ -16,5 +16,9 @@ public class App {
 	public static final int ACTION_SETTING = 102;
 	public static final int ACTION_DONATE = 103;
 	public static final int ACTION_LINKS = 104;
+	
+	//Preferences
+	public static final String PREF_APP = "app_preferences";
+	public static final String PREF_PLAY_STATUS = "play_status";
 
 }

@@ -39,9 +39,7 @@ public class PlayerNotificationService extends Service{
 	}
 
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i(TAG, "onStartCommand() - Flags: " + flags + " | Intent flags: " + intent.getFlags());
-		
+	public int onStartCommand(Intent intent, int flags, int startId) {		
 		switch (intent.getFlags()) {
 		case App.PLAY_MEDIA_CODE_ACTION:
 			startPlaying();
@@ -69,7 +67,9 @@ public class PlayerNotificationService extends Service{
 						.setWhen(System.currentTimeMillis())
 						.setSmallIcon(android.R.drawable.ic_media_play)
 						.setLights(Color.GREEN, 100, 100)
-						.setContentTitle(getString(R.string.radio_name));
+						.setContentTitle(getString(R.string.radio_name))
+						.setOngoing(true)
+						.setSubText(getString(R.string.happy_listening));
 		
 		Log.i(TAG, "Show notifications");
 		Notification not = notPlayerBuilder.build();
@@ -137,6 +137,7 @@ public class PlayerNotificationService extends Service{
             player.stop();
             player.release();
             initializeMediaPlayer();
+            notMang.cancel(App.NOTIFYCATION_PLAYER_ID);
         }
     }
 
